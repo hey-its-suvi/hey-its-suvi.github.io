@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {Select} from 'antd'
+import {Select, Input, Option} from 'antd'
 
 function App() {
   const peopleList = `Tanvee Kulkarni,T1
@@ -221,15 +221,30 @@ function App() {
 
 
   const peopleDict = {}
-  console.log(peopleDict)
 
   peopleList.split('\n').forEach((line) => {
     const [key, value] = line.split(',');
     peopleDict[key.trim()] = value.trim();
   });
 
+  // const [typedLastName, setTypedLastName] = useState('');
   const [selectedName, setSelectedName] = useState('');
   const [tableNumber, setTableNumber] = useState('');
+  const [filteredNames, setFilteredNames] = useState([]);
+
+  const handleInputChange = (e) => {
+    const inputLastName = e.target.value
+
+
+    // setTypedLastName(inputLastName);
+    const updatedFilteredNames = Object.keys(peopleDict).filter((name) => {
+      const lastNameFromName = name.split(' ').pop();
+      return lastNameFromName.toLowerCase() === inputLastName.toLowerCase();
+    });
+    setFilteredNames(updatedFilteredNames);
+    setTableNumber('')
+    // console.log(updatedFilteredNames)
+  };
 
   const handleSelectChange = (value) => {
     setSelectedName(value);
@@ -240,20 +255,52 @@ function App() {
   return (
     <div className="MainPage">
       <header className="App-header">
-      <Select
+      <p>
+          Hello and welcome to Asmita and TJ's wedding! Please enter your Last Name
+      </p>
+      <Input placeholder="Last Name" 
+      onChange={handleInputChange}/>
+
+      {filteredNames.length > 0 ? (
+          <div>
+          <p>
+          Hi! Please choose your name from the list
+          </p>
+          <Select
+            showSearch
+            allowClear
+            style={{ width: 200 }}
+            onChange={handleSelectChange}
+          >
+            {filteredNames.map((name) => (
+              <Select.Option key={name} value={name}>
+                {name}
+              </Select.Option>
+            ))}
+          </Select>
+          {tableNumber && (
+          <p>
+          Hi  {selectedName.substring(0, selectedName.lastIndexOf(' '))}! Table {tableNumber} awaits you for a joyous fun filled night
+          </p>
+        )}
+          </div>
+        ) : (
+          <p>Sorry but we could not find any names corresponding to the last name.</p>
+        )}
+      {/* <Select
       showSearch='true'
       allowClear
       style={{ width: 200 }}
       onChange={handleSelectChange}
       
       options={Object.entries(peopleDict).map(([key, value]) => ({'value': key}))}
-      />
+      /> */}
 
-      {tableNumber && (
+      {/* {tableNumber && (
           <p>
           Hi  {selectedName.split(' ')[0]}! Table {tableNumber} awaits you for a joyous fun filled night
           </p>
-        )}
+        )} */}
       </header>
     </div>
   );

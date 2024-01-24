@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/weddingSeatSelectionWebsite/static/css/main.76a3c545.css",
-    "main.js": "/weddingSeatSelectionWebsite/static/js/main.7ca275f4.js",
-    "static/js/787.d4aba7ab.chunk.js": "/weddingSeatSelectionWebsite/static/js/787.d4aba7ab.chunk.js",
-    "static/media/banner.png": "/weddingSeatSelectionWebsite/static/media/banner.28c06da595aa82d439c7.png",
-    "index.html": "/weddingSeatSelectionWebsite/index.html",
-    "main.76a3c545.css.map": "/weddingSeatSelectionWebsite/static/css/main.76a3c545.css.map",
-    "main.7ca275f4.js.map": "/weddingSeatSelectionWebsite/static/js/main.7ca275f4.js.map",
-    "787.d4aba7ab.chunk.js.map": "/weddingSeatSelectionWebsite/static/js/787.d4aba7ab.chunk.js.map"
+    "main.css": "/static/css/main.76a3c545.css",
+    "main.js": "/static/js/main.cb589a6c.js",
+    "static/js/787.d4aba7ab.chunk.js": "/static/js/787.d4aba7ab.chunk.js",
+    "static/media/banner.png": "/static/media/banner.28c06da595aa82d439c7.png",
+    "index.html": "/index.html",
+    "main.76a3c545.css.map": "/static/css/main.76a3c545.css.map",
+    "main.cb589a6c.js.map": "/static/js/main.cb589a6c.js.map",
+    "787.d4aba7ab.chunk.js.map": "/static/js/787.d4aba7ab.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.76a3c545.css",
-    "static/js/main.7ca275f4.js"
+    "static/js/main.cb589a6c.js"
   ]
 }

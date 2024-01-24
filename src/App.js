@@ -1,5 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import {Select} from 'antd'
+import React, { useState} from 'react';
+import {Select, Input} from 'antd'
+import bannerImage from './banner.png';
+import './App.css'
 
 function App() {
   const peopleList = `Tanvee Kulkarni,T1
@@ -221,15 +223,30 @@ function App() {
 
 
   const peopleDict = {}
-  console.log(peopleDict)
 
   peopleList.split('\n').forEach((line) => {
     const [key, value] = line.split(',');
     peopleDict[key.trim()] = value.trim();
   });
 
+  const [typedLastName, setTypedLastName] = useState('');
   const [selectedName, setSelectedName] = useState('');
   const [tableNumber, setTableNumber] = useState('');
+  const [filteredNames, setFilteredNames] = useState([]);
+
+  const handleInputChange = (e) => {
+    const inputLastName = e.target.value
+
+
+    setTypedLastName(inputLastName);
+    const updatedFilteredNames = Object.keys(peopleDict).filter((name) => {
+      const lastNameFromName = name.split(' ').pop();
+      return lastNameFromName.toLowerCase() === inputLastName.toLowerCase();
+    });
+    setFilteredNames(updatedFilteredNames);
+    setTableNumber('')
+    // console.log(updatedFilteredNames)
+  };
 
   const handleSelectChange = (value) => {
     setSelectedName(value);
@@ -240,20 +257,62 @@ function App() {
   return (
     <div className="MainPage">
       <header className="App-header">
-      <Select
+      <img src={bannerImage} alt="Banner" className='Banner'/>
+      <h1 className="App-text" style={{position:'fixed', top: '10%'}}>
+          Hello and welcome to <br></br>
+          Asmita and TJ's wedding!
+      </h1>
+      <h1 className='App-text' style={{position:'fixed', top: '22%'}}>
+      Please enter your Last Name
+      </h1>
+      <Input placeholder="Last Name" 
+      className='Input-LastName'
+      onChange={handleInputChange}/>
+      
+      {typedLastName ? 
+      (filteredNames.length > 0 ? (
+          <>
+          <p className='App-text' style={{position:'fixed', top: '40%'}}>
+          Great! Please choose your name from the list
+          </p>
+          <Select
+            showSearch
+            allowClear
+            className='Input-FirstName'
+            onChange={handleSelectChange}
+            style={{position:'fixed', top: '55%'}}
+          >
+            {filteredNames.map((name) => (
+              <Select.Option key={name} value={name}>
+                {name}
+              </Select.Option>
+            ))}
+          </Select>
+          {tableNumber && (
+          <p className='App-text' style={{position:'fixed', top: '60%'}}>
+          Hi  {selectedName.substring(0, selectedName.lastIndexOf(' '))}! Table {tableNumber} awaits you for a joyous fun filled night
+          </p>
+        )}
+          </>
+        ) : (
+          <p className='App-text' style={{position:'fixed', top: '40%'}} > Sorry but we could not find any names corresponding to the last name.</p>
+        ))
+        :null}
+      
+      {/* <Select
       showSearch='true'
       allowClear
       style={{ width: 200 }}
       onChange={handleSelectChange}
       
       options={Object.entries(peopleDict).map(([key, value]) => ({'value': key}))}
-      />
+      /> */}
 
-      {tableNumber && (
+      {/* {tableNumber && (
           <p>
           Hi  {selectedName.split(' ')[0]}! Table {tableNumber} awaits you for a joyous fun filled night
           </p>
-        )}
+        )} */}
       </header>
     </div>
   );
